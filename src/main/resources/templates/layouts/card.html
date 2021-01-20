@@ -1,0 +1,37 @@
+<div class="card mb-3" xmlns:th="http://www.thymeleaf.org">
+    <div class="card-header" style="background-color: #0b2e13; color: white;" th:text="#{label.categories}">
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <a class="card-link" th:href="@{'/allItems'}" style="color: black">
+                <i class="fas fa-shopping-cart" style="width: 30px; color: black"></i> <span
+                    th:text="#{label.allItems}"></span>
+            </a>
+        </li>
+        <li class="list-group-item" th:each="category : ${categories}">
+            <a href="#" class="card-link" style="color: black">
+                <img th:src="${category.getLogoURL()}" style="width: 20px"> <span
+                    th:text="${category.getName()}"></span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="card mb-3" xmlns:th="http://www.thymeleaf.org">
+    <div class="card-header" style="background-color: #0b2e13; color: white;" th:text="#{label.brands}">
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item" th:each="b: ${brands}"><a class="card-link" style="color: black"
+                th:href="@{'/search?name=&brand='+${b.getId()}+'&priceFrom=&priceTo=&order=asc'}"
+                th:text="${b.getName()}"></a></li>
+    </ul>
+</div>
+<div class="card mb-3" xmlns:th="http://www.thymeleaf.org">
+    <div class="card-header" style="background-color: #0b2e13; color: white;" th:text="#{label.payments}">
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item" style="font-size: 50px"><i class="fab fa-cc-apple-pay"></i> <i
+                class="fab fa-cc-visa my-3"></i> <i class="fab fa-cc-paypal"></i>
+            <br><i class="fab fa-cc-amazon-pay"></i> <i class="fab fa-cc-mastercard my-3"></i> <i
+                    class="fab fa-cc-amex"></i></li>
+    </ul>
+</div>

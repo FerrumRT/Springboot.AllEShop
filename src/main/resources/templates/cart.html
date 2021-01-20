@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/user_layout_with_card.html">
+<div class="col-9" layout:fragment="site_content">
+    <div class="container-fluid">
+        <div class="row row-cols-1">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h1 th:text="#{label.cart}"></h1>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col" th:text="#{label.cart.item}"></th>
+                            <th scope="col" th:text="#{label.cart.price}"></th>
+                            <th scope="col" th:text="#{label.cart.amount}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="order:${orders}">
+                            <th scope="row" th:text="${order.getItemId().getName()}"></th>
+                            <td th:text="${order.getItemId().getPrice()}"></td>
+                            <td th:text="${order.getCount()}"></td>
+                            <td><form th:action="@{'/to_cart'}" method="post">
+                                    <input type="number" name="item_id" th:value="${order.getItemId().getId()}" hidden>
+                                    <input class="form-control" type="number" name="item_count" value="1" hidden>
+                                    <button type="submit" class="btn btn-success">+</button>
+                            </form><form th:action="@{'/to_cart'}" method="post">
+                                <input type="number" name="item_id" th:value="${order.getItemId().getId()}" hidden>
+                                <input class="form-control" type="number" name="item_count" value="-1" hidden>
+                                <button type="submit" class="btn btn-danger">-</button>
+                            </form></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h2><span th:text="#{label.total}"></span>: <span th:text="${full_price}"></span>$</h2>
+                    <a th:href="@{'/buy'}" class="btn btn-success float-right" th:text="#{button.buy}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

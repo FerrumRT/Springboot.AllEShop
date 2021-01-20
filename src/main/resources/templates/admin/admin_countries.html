@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/admin_layout.html">
+<div class="col-9" layout:fragment="admin_content">
+    <div class="container-fluid">
+        <div class="row">
+            <div>
+                <h2>Countries</h2>
+            </div>
+            <div class="ml-auto">
+                <button type="button" class="btn btn-dark" style="background-color: #1b1e21;" data-target="#addCountry" data-toggle="modal">
+                    <i class="fas fa-plus"></i>Add Country
+                </button>
+                <div class="modal fade" id="addCountry" tabindex="-1" role="dialog" aria-labelledby="addCountryLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Add New Country</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form th:action="@{'/addCountry'}" method="post">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>NAME: </label>
+                                        <input name="name" type="text" class="form-control" placeholder="Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>CODE: </label>
+                                        <input name="code" type="text" class="form-control" placeholder="Code">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Add Country</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">CODE</th>
+                    <th scope="col">EDIT</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="country : ${countries}">
+                    <th scope="row" th:text="${country.getId()}"></th>
+                    <td th:text="${country.getName()}"></td>
+                    <td th:text="${country.getCode()}"></td>
+                    <td><a th:href="@{'/admin/countries/details/'+${country.getId()}}" class="btn btn-dark" style="background-color: #1b1e21;"><i class="fas fa-edit"></i></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,66 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main.html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="container-fluid p-0" layout:fragment="main_content">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1b1e21;">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{'/admin/items'}"><i class="fab fa-airbnb"></i> <b>ALL E-SHOP</b> - Admin
+                panel</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link ml-2" href="/">Exit Admin</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-3">
+                <div class="card mb-3">
+                    <div class="card-header" style="background-color: #1b1e21;color: white;">
+                        <b>DASHBOARD</b>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a style="color: #1b1e21" th:href="@{'/admin/items'}"><i class="fas fa-shopping-cart"
+                                                                                      style="width: 30px"></i>Product
+                            Items</a>
+                        </li>
+                        <li class="list-group-item"><a style="color: #1b1e21" th:href="@{'/admin/countries'}"><i class="fas fa-globe-africa"
+                                                                                          style="width: 30px"></i>Countries</a>
+                        </li>
+                        <li class="list-group-item"><a style="color: #1b1e21" th:href="@{'/admin/brands'}"><i class="far fa-copyright"
+                                                                                       style="width: 30px"></i>Brands</a>
+                        </li>
+                        <li class="list-group-item"><a style="color: #1b1e21" th:href="@{'/admin/categories'}"><i class="fas fa-layer-group"
+                                                                                           style="width: 30px"></i>Categories</a>
+                        </li>
+                        <li class="list-group-item"><a style="color: #1b1e21" th:href="@{'/admin/orders'}"><i class="fas fa-clipboard-list"
+                                                                                           style="width: 30px"></i>Orders</a>
+                        </li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')" class="list-group-item">
+                            <a th:href="@{'/admin/users'}" style="color: #1b1e21">
+                                <i class="fas fa-users" style="width: 30px"></i>
+                                Users
+                            </a>
+                        </li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')" class="list-group-item">
+                            <a th:href="@{'/admin/roles'}" style="color: #1b1e21">
+                                <i class="far fa-address-card" style="width: 30px"></i>
+                                Roles
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-9" layout:fragment="admin_content">
+
+            </div>
+        </div>
+    </div>
+</div>
+</html>

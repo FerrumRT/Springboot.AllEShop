@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/admin_layout.html">
+<div class="col-9" layout:fragment="admin_content">
+    <div class="container-fluid">
+        <div class="row">
+            <div>
+                <h2>Roles</h2>
+            </div>
+            <div class="ml-auto">
+                <button type="button" class="btn btn-dark" style="background-color: #1b1e21;" data-target="#addRole" data-toggle="modal">
+                    <i class="fas fa-plus"></i>Add Role
+                </button>
+                <div class="modal fade" id="addRole" tabindex="-1" role="dialog" aria-labelledby="addRoleLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Add New Role</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form th:action="@{'/addRole'}" method="post">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>ROLE NAME: </label>
+                                        <input name="role" type="text" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>DESCRIPTION: </label>
+                                        <textarea class="form-control" name="description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Add Role</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">ROLE</th>
+                    <th scope="col">DESCRIPTION</th>
+                    <th scope="col">EDIT</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="role : ${roles}">
+                    <th scope="row" th:text="${role.getId()}"></th>
+                    <td th:text="${role.getRole()}"></td>
+                    <td th:text="${role.getDescription()}"></td>
+                    <td><a th:href="@{'/admin/roles/details/'+${role.getId()}}" class="btn btn-dark" style="background-color: #1b1e21;"><i class="fas fa-edit"></i></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/admin_layout.html">
+<div class="col-9" layout:fragment="admin_content">
+    <div class="container-fluid">
+        <h1 th:text="${country.getName()}"></h1>
+        <div class="row row-cols-1">
+            <form th:action="@{'/editCountry'}" method="post">
+                <input th:value="${country.getId()}" name="id" type="number" class="form-control" placeholder="Name"
+                       hidden>
+                <div class="form-group">
+                    <label>NAME: </label>
+                    <input th:value="${country.getName()}" name="name" type="text" class="form-control"
+                           placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <label>CODE: </label>
+                    <input th:value="${country.getCode()}" name="code" type="text" class="form-control"
+                           placeholder="Code">
+                </div>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete
+                </button>
+                <button type="submit" class="btn btn-success">Edit</button>
+            </form>
+        </div>
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Deleting <span th:text="${country.getName()}"></span></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                        <a th:href="@{'/deleteCountry?id='+${country.getId()}}" type="button" class="btn btn-danger">YES</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

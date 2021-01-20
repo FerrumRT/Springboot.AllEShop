@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/user_layout_with_card.html">
+<div class="col-9" layout:fragment="site_content">
+    <div class="container-fluid">
+        <form th:action="@{'/search'}">
+            <div class="container-fluid my-2">
+                <div class="row">
+                    <input name="name" th:placeholder="#{placeholder.name}" type="search" class="form-control col-2 mr-auto" th:value="${name}">
+                    <select name="brand" type="number" class="form-control col-2 mr-auto">
+                        <option th:selected="${b1 == brand}" th:value="${b1.getId()}" th:text="${b1.getName()}" th:each="b1: ${brands}"></option>
+                    </select>
+                    <input name="priceFrom" th:placeholder="#{placeholder.price.from}" type="number" class="form-control col-2 mr-auto" th:value="${priceFrom}">
+                    <input name="priceTo" th:placeholder="#{placeholder.price.to}" type="number" class="form-control col-2 mr-auto" th:value="${priceTo}">
+                    <select name="order" type="number" class="form-control col-2 mr-auto">
+                        <option th:selected="${order=='asc'}" value="asc" th:text="#{order.asc}"></option>
+                        <option th:selected="${order=='desc'}" value="desc" th:text="#{order.desc}"></option>
+                    </select>
+                    <button class="btn btn-primary col-1" style="background-color: #0b2e13;" th:text="#{button.search}"></button>
+                </div>
+            </div>
+        </form>
+        <div class="container-fluid">
+            <div class="row row-cols-3">
+                <div th:each="item: ${items}" class="card mb-4">
+                    <img th:src="${item.getLargePictureUrl()}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><a th:href="@{'/details/'+${item.getId()}}" th:text="${item.getName()}"></a></h5>
+                        <h5 class="card-title">$<span th:text="${item.getPrice()}"></span></h5>
+                        <p class="card-text" th:text="${item.getDescription()}"></p>
+                        <h5 class="card-title"><span th:text="#{label.brands}"></span>:
+                            <a href="#" th:text="${item.getBrandId().getName()}"></a>,
+                            <a href="#" th:text="${item.getBrandId().getCountryId().getName()}"></a>
+                        </h5>
+                    </div>
+                    <div class="card-footer">
+                        <i th:hidden="${item.getStars()}<1" class="fas fa-star"></i>
+                        <i th:hidden="${item.getStars()}<2" class="fas fa-star"></i>
+                        <i th:hidden="${item.getStars()}<3" class="fas fa-star"></i>
+                        <i th:hidden="${item.getStars()}<4" class="fas fa-star"></i>
+                        <i th:hidden="${item.getStars()}<5" class="fas fa-star"></i>
+                        <i th:hidden="5-${item.getStars()}<1" class="far fa-star"></i>
+                        <i th:hidden="5-${item.getStars()}<2" class="far fa-star"></i>
+                        <i th:hidden="5-${item.getStars()}<3" class="far fa-star"></i>
+                        <i th:hidden="5-${item.getStars()}<4" class="far fa-star"></i>
+                        <i th:hidden="5-${item.getStars()}<5" class="far fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

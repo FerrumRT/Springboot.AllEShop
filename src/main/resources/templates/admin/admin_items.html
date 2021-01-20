@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/admin_layout.html">
+<div class="col-9" layout:fragment="admin_content">
+    <div class="container-fluid">
+        <div class="row">
+            <div>
+                <h2>Shop Items</h2>
+            </div>
+            <div class="ml-auto">
+                <button type="button" class="btn btn-dark" style="background-color: #1b1e21;" data-target="#addItem"
+                        data-toggle="modal">
+                    <i class="fas fa-plus"></i>Add Item
+                </button>
+                <div class="modal fade" id="addItem" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form th:action="@{'/addItem'}" method="post">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>NAME: </label>
+                                        <input type="text" class="form-control" placeholder="Name"
+                                               name="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>DESCRIPTION</label>
+                                        <textarea class="form-control" name="description"
+                                                  placeholder="Description"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>PRICE: </label>
+                                        <input type="number" class="form-control" name="price">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>STARS: </label>
+                                        <select class="form-control" name="stars">
+                                            <option selected>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>BRAND: </label>
+                                        <select class="form-control" name="brand">
+                                            <option th:each="brand: ${brands}" th:value="${brand.getId()}"
+                                                    th:text="${brand.getName()}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ITEM SMALL PICTURE URL: </label>
+                                        <input type="text" class="form-control" name="small_picture">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ITEM LARGE PICTURE URL: </label>
+                                        <input type="text" class="form-control" name="large_picture">
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" class="form-check-input" name="isTopPage">
+                                        <label>IS IN TOP PAGE</label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-dark" style="background-color: #0c5460;">Add Item</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">BRAND</th>
+                    <th scope="col">PRICE</th>
+                    <th scope="col">DETAILS</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${items}">
+                    <th scope="row" th:text="${item.getId()}"></th>
+                    <td th:text="${item.getName()}"></td>
+                    <td th:text="${item.getBrandId().getName()}"></td>
+                    <td th:text="${item.getPrice()}"></td>
+                    <td><a th:href="@{'/admin/items/details/'+${item.getId()}}" class="btn btn-dark" style="background-color: #1b1e21;"><i
+                            class="fas fa-info-circle"></i></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</html>

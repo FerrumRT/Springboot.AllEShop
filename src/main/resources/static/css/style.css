@@ -1,0 +1,7 @@
+.thumb-post img {
+    object-fit: cover;
+    width: 120%;
+    max-height: 300px!important;
+}
+
+

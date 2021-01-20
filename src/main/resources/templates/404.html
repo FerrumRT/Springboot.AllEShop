@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layouts/user_layout.html">
+
+<div class="container-fluid p-0" layout:fragment="content">
+    <div class="container">
+        <div class="row row-cols-1 justify-content-center">
+            <img class="w-100" src="https://image.freepik.com/free-vector/404-error-page-not-found-design-template-for-website_114341-22.jpg">
+            <a th:href="@{'/'}" class="page-link text-center" th:text="#{link.to_home}"></a>
+        </div>
+    </div>
+</div>
+
+</html>

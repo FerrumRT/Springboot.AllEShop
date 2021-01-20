@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/admin_layout.html">
+<div class="col-9" layout:fragment="admin_content">
+    <div class="container-fluid">
+        <h1 th:text="${user.getFullName()}"></h1>
+        <div class="row row-cols-1">
+            <form th:action="@{'/editUser'}" method="post">
+                <input th:value="${user.getId()}" type="number" name="id" hidden>
+                <div class="form-group">
+                    <label>EMAIL: </label>
+                    <input th:value="${user.getEmail()}" type="email" class="form-control" name="email">
+                </div>
+                <div class="form-group">
+                    <label>FULL NAME: </label>
+                    <input th:value="${user.getFullName()}" type="text" class="form-control" name="full_name"/>
+                </div>
+                <br>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete
+                </button>
+                <button type="submit" class="btn btn-success">Edit</button>
+            </form>
+        </div>
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Deleting <span th:text="${user.getFullName()}"></span></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                        <a th:href="@{'/deleteUser?id='+${user.getId()}}" type="button"
+                           class="btn btn-danger">YES</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3 class="mt-2">Roles</h3>
+        <table class="table">
+            <tbody>
+            <tr  th:if="${user.getRoles()!=null}" th:each="role : ${user.getRoles()}">
+                <th scope="row" th:text="${role.getRole()}"></th>
+                <form th:action="@{'/removeRole'}" method="post">
+                    <input type="number" th:value="${user.getId()}" name="user_id" hidden>
+                    <input type="number" th:value="${role.getId()}" name="role_id" hidden>
+                    <td>
+                        <button type="submit" class="btn btn-danger float-right">-</button>
+                    </td>
+                </form>
+            </tr>
+            <tr th:each="role : ${roles}" th:if="${user.getRoles()==null || !user.getRoles().contains(role)}">
+                <th scope="row" th:text="${role.getRole()}"></th>
+                <form th:action="@{'/assignRole'}" method="post">
+                    <input type="number" th:value="${user.getId()}" name="user_id" hidden>
+                    <input type="number" th:value="${role.getId()}" name="role_id" hidden>
+                    <td>
+                        <button type="submit" class="btn btn-success float-right">+</button>
+                    </td>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</html>

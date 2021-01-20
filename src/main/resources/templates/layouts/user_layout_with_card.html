@@ -1,0 +1,16 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/user_layout.html">
+<div class="container-fluid p-0" layout:fragment="content">
+    <div class="container mt-3 p-0">
+        <div class="row">
+            <div class="col-3" th:insert="~{layouts/card}">
+
+            </div>
+            <div class="col-9" layout:fragment="site_content">
+
+            </div>
+        </div>
+    </div>
+</div>
+</html>
